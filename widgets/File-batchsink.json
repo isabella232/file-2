@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "spec-version": "1.5"
+  },
+  "display-name": "File",
+  "configuration-groups": [
+    {
+      "label": "Configuration",
+      "properties": [
+        {
+          "widget-type": "textbox",
+          "label": "Reference Name",
+          "name": "referenceName"
+        },
+        {
+          "widget-type": "textbox",
+          "label": "HDFS Path",
+          "name": "path"
+        },
+        {
+          "widget-type": "textbox",
+          "label": "Time Suffix Format",
+          "name": "suffix"
+        },
+        {
+          "widget-type": "textbox",
+          "label": "Time Suffix Format",
+          "name": "suffix"
+        },
+        {
+          "widget-type": "textbox",
+          "label": "Delimiter",
+          "name": "delimiter"
+        },
+        {
+          "widget-type": "json-editor",
+          "label": "Job Properties",
+          "name": "jobProperties"
+        }
+      ]
+    }
+  ],
+  "outputs": []
+}
