@@ -2,7 +2,7 @@ File Plugins
 ============
 
 [![Join CDAP community](https://cdap-users.herokuapp.com/badge.svg?t=dynamic-spark)](https://cdap-users.herokuapp.com) 
-[![Build Status](https://travis-ci.org/hydrator/dynamic-spark.svg?branch=develop)](https://travis-ci.org/hydrator/dynamic-spark)
+[![cm-available](https://cdap-users.herokuapp.com/assets/cm-available.svg)](https://docs.cask.co/cdap/current/en/integrations/cask-market.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![CDAP Source](https://cdap-users.herokuapp.com/assets/cdap-batch-source.svg)
 ![CDAP Sink](https://cdap-users.herokuapp.com/assets/cdap-batch-sink.svg)
