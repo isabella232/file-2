@@ -14,7 +14,7 @@
         },
         {
           "widget-type": "textbox",
-          "label": "HDFS Path",
+          "label": "Path",
           "name": "path"
         },
         {
