@@ -1,14 +1,13 @@
-HDFS Batch Sink
+File Batch Sink
 ===============
 
 Description
 -----------
-Batch sink that writes to the Hadoop FileSystem directly instead of through CDAP.
-Each record is written out as text by delimiting record fields with a comma.
-It should be noted that this means that it may not be a good idea to use this sink
-if your fields contain commas. Non-string fields will be converted to strings
-using their ``toString()`` Java method, so fields should be limited to the
-string, long, int, double, float, and boolean types. Fields cannot have null values. 
+Batch sink that writes to Hadoop compatible File Systems such as HDFS, S3, GCS (Google Cloud Storage), etc.
+Each record is written out as text by delimiting record fields with a configurable delimiter.
+Non-string fields will be converted to strings using their ``toString()`` Java method, 
+so fields should be limited to the string, long, int, double, float, and boolean types. 
+Fields cannot have null values. 
 
 
 Use Case
@@ -41,7 +40,7 @@ to the ``/etc/accesslogs/YYYY-MM-dd-HH-mm`` path. For example if the run was sch
 run midnight on new years day 2016, the pipeline would write to ``/etc/accesslogs/2016-01-01-00-00``. 
 
     {
-        "name": "HDFS",
+        "name": "File",
         "type": "batchsink",
         "properties": {
             "path": "hdfs://mycluster.net:8020/etl/accesslogs",
