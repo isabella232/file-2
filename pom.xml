@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2018 Cask Data, Inc.
+  ~ Copyright © 2019 CDAP
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not
   ~ use this file except in compliance with the License. You may obtain a copy of
@@ -19,9 +19,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <name>File Plugins</name>
-  <groupId>co.cask.cdap</groupId>
+  <groupId>io.cdap.cdap</groupId>
   <artifactId>file-plugins</artifactId>
-  <version>2.1.0-SNAPSHOT</version>
+  <version>3.0.0</version>
   <modelVersion>4.0.0</modelVersion>
 
   
@@ -36,9 +36,9 @@
 
   <developers>
     <developer>
-      <name>Cask Data</name>
-      <email>cask-dev@googlegroups.com</email>
-      <organization>Cask Data, Inc.</organization>
+      <name>CDAP</name>
+      <email>cdap-dev@googlegroups.com</email>
+      <organization>CDAP</organization>
       <organizationUrl>http://www.cdap.io</organizationUrl>
     </developer>
   </developers>
@@ -57,8 +57,8 @@
     <!-- properties for script build step that creates the config files for the artifacts -->
     <!-- Explicitly overridden in this submodule so these plugins aren't made available to realtime pipelines -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <app.parents>system:cdap-data-pipeline[5.0.0-SNAPSHOT,6.0.0-SNAPSHOT),system:cdap-data-streams[5.0.0-SNAPSHOT,6.0.0-SNAPSHOT)</app.parents>
-    <cdap.version>5.0.0-SNAPSHOT</cdap.version>
+    <app.parents>system:cdap-data-pipeline[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT),system:cdap-data-streams[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT)</app.parents>
+    <cdap.version>6.0.0-SNAPSHOT</cdap.version>
     <hadoop.version>2.3.0</hadoop.version>
     <junit.version>4.11</junit.version>
     <guava.version>13.0.1</guava.version>
@@ -85,26 +85,26 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <site>
-      <id>cask</id>
-      <url>http://cask.co</url>
+      <id>cdap</id>
+      <url>http://cdap.io</url>
     </site>
   </distributionManagement>
 
   <dependencies>
     <dependency>
-      <groupId>co.cask.cdap</groupId>
+      <groupId>io.cdap.cdap</groupId>
       <artifactId>cdap-api</artifactId>
       <version>${cdap.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>co.cask.cdap</groupId>
+      <groupId>io.cdap.cdap</groupId>
       <artifactId>cdap-etl-api</artifactId>
       <version>${cdap.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>co.cask.cdap</groupId>
+      <groupId>io.cdap.cdap</groupId>
       <artifactId>cdap-data-pipeline</artifactId>
       <version>${cdap.version}</version>
       <scope>provided</scope>
@@ -233,7 +233,7 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>co.cask.cdap</groupId>
+      <groupId>io.cdap.cdap</groupId>
       <artifactId>hydrator-test</artifactId>
       <version>${cdap.version}</version>
       <scope>test</scope>
@@ -270,7 +270,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <_exportcontents>co.cask.cdap.plugin.*;
+            <_exportcontents>io.cdap.cdap.plugin.*;
               org.apache.commons.lang;org.apache.commons.logging.*;
               org.codehaus.jackson.*</_exportcontents>
             <Embed-Dependency>*;inline=false;scope=compile</Embed-Dependency>
@@ -288,13 +288,13 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>co.cask</groupId>
+        <groupId>io.cdap</groupId>
         <artifactId>cdap-maven-plugin</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0</version>
         <configuration>
           <cdapArtifacts>
-            <parent>system:cdap-data-pipeline[4.2.0,6.0.0-SNAPSHOT)</parent>
-            <parent>system:cdap-data-streams[4.2.0,6.0.0-SNAPSHOT)</parent>
+            <parent>system:cdap-data-pipeline[6.0.0,7.0.0-SNAPSHOT)</parent>
+            <parent>system:cdap-data-streams[6.0.0,7.0.0-SNAPSHOT)</parent>
           </cdapArtifacts>
         </configuration>
         <executions>
@@ -345,7 +345,7 @@
               </links>
               <doctitle>${project.name} ${project.version}</doctitle>
               <bottom>
-                <![CDATA[Copyright &#169; {currentYear} <a href="http://cask.co" target="_blank">Cask Data, Inc.</a> Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a>.]]>
+                <![CDATA[Copyright &#169; {currentYear} <a href="http://cdap.io" target="_blank">CDAP</a> Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a>.]]>
               </bottom>
             </configuration>
             <executions>
