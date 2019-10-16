@@ -24,11 +24,6 @@
         },
         {
           "widget-type": "textbox",
-          "label": "Time Suffix Format",
-          "name": "suffix"
-        },
-        {
-          "widget-type": "textbox",
           "label": "Delimiter",
           "name": "delimiter"
         },

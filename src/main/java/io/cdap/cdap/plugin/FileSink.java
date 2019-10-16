@@ -32,6 +32,7 @@ import io.cdap.cdap.api.data.schema.Schema;
 import io.cdap.cdap.api.dataset.lib.KeyValue;
 import io.cdap.cdap.api.plugin.PluginConfig;
 import io.cdap.cdap.etl.api.Emitter;
+import io.cdap.cdap.etl.api.FailureCollector;
 import io.cdap.cdap.etl.api.PipelineConfigurer;
 import io.cdap.cdap.etl.api.batch.BatchSink;
 import io.cdap.cdap.etl.api.batch.BatchSinkContext;
@@ -65,13 +66,16 @@ public class FileSink extends BatchSink<StructuredRecord, Text, NullWritable> {
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) {
     super.configurePipeline(pipelineConfigurer);
-    config.validate();
+    FailureCollector collector = pipelineConfigurer.getStageConfigurer().getFailureCollector();
+    config.validate(collector);
   }
 
   @Override
-  public void prepareRun(BatchSinkContext context) throws Exception {
+  public void prepareRun(BatchSinkContext context) {
+    FailureCollector collector = context.getFailureCollector();
     // if user provided macro, need to still validate timeSuffix format
-    config.validate();
+    config.validate(collector);
+    collector.getOrThrowException();
     context.addOutput(Output.of(config.referenceName, new SinkOutputFormatProvider(config, context)));
   }
 
@@ -123,6 +127,9 @@ public class FileSink extends BatchSink<StructuredRecord, Text, NullWritable> {
    * Config for File Sink.
    */
   static class FileSinkConfig extends PluginConfig {
+    private static final String REFERENCE_NAME = "referenceName";
+    private static final String SUFFIX = "suffix";
+    private static final String JOB_PROPERTIES = "jobProperties";
 
     @Description("This will be used to uniquely identify this source/sink for lineage, annotating metadata, etc.")
     private String referenceName;
@@ -133,14 +140,14 @@ public class FileSink extends BatchSink<StructuredRecord, Text, NullWritable> {
     @Macro
     private String path;
 
-    @Name("suffix")
+    @Name(SUFFIX)
     @Description("Time Suffix used for destination directory for each run. For example, 'YYYY-MM-dd-HH-mm'. " +
       "By default, no time suffix is used.")
     @Nullable
     @Macro
     private String timeSufix;
 
-    @Name("jobProperties")
+    @Name(JOB_PROPERTIES)
     @Nullable
     @Description("Advanced feature to specify any additional properties that should be used with the sink, " +
       "specified as a JSON object of string to string. These properties are set on the job.")
@@ -161,18 +168,29 @@ public class FileSink extends BatchSink<StructuredRecord, Text, NullWritable> {
       delimiter = ",";
     }
 
-    private void validate() {
+    private void validate(FailureCollector collector) {
       if (!DATASET_ID_PATTERN.matcher(referenceName).matches()) {
-        throw new IllegalArgumentException(String.format("%s is not a valid id. Allowed characters are letters, " +
-                                                           "numbers, and _, -, ., or $.", referenceName));
+        collector.addFailure(
+          String.format("%s is not a valid id.", referenceName),
+          "Allowed characters are letters, numbers, and _, -, ., or $.").withConfigProperty(REFERENCE_NAME);
       }
       // if macro provided, timeSuffix will be null at configure time
       if (!Strings.isNullOrEmpty(timeSufix)) {
-        new SimpleDateFormat(timeSufix);
+        try {
+          new SimpleDateFormat(timeSufix);
+        } catch (IllegalArgumentException e) {
+          collector.addFailure("Invalid date format: " + e.getMessage(), null)
+            .withStacktrace(e.getStackTrace()).withConfigProperty(SUFFIX);
+        }
       }
       if (!Strings.isNullOrEmpty(jobProperties)) {
-        // Try to parse the JSON and propagate the error
-        GSON.fromJson(jobProperties, MAP_STRING_STRING_TYPE);
+        try {
+          // Try to parse the JSON and propagate the error
+          GSON.fromJson(jobProperties, MAP_STRING_STRING_TYPE);
+        } catch (Exception e) {
+          collector.addFailure("Invalid json for job properties: " + e.getMessage(), null)
+            .withStacktrace(e.getStackTrace()).withConfigProperty(JOB_PROPERTIES);
+        }
       }
     }
   }

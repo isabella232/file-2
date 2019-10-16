@@ -21,7 +21,7 @@
   <name>File Plugins</name>
   <groupId>io.cdap.cdap</groupId>
   <artifactId>file-plugins</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0-SNAPSHOT</version>
   <modelVersion>4.0.0</modelVersion>
 
   
@@ -57,8 +57,10 @@
     <!-- properties for script build step that creates the config files for the artifacts -->
     <!-- Explicitly overridden in this submodule so these plugins aren't made available to realtime pipelines -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <app.parents>system:cdap-data-pipeline[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT),system:cdap-data-streams[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT)</app.parents>
-    <cdap.version>6.0.0-SNAPSHOT</cdap.version>
+    <app.parents>
+      system:cdap-data-pipeline[6.1.0-SNAPSHOT,7.0.0-SNAPSHOT),
+      system:cdap-data-streams[6.1.0-SNAPSHOT,7.0 .0-SNAPSHOT)</app.parents>
+    <cdap.version>6.1.0-SNAPSHOT</cdap.version>
     <hadoop.version>2.3.0</hadoop.version>
     <junit.version>4.11</junit.version>
     <guava.version>13.0.1</guava.version>
