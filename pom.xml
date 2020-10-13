@@ -60,7 +60,7 @@
     <app.parents>system:cdap-data-pipeline[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT),system:cdap-data-streams[6.0.0-SNAPSHOT,7.0.0-SNAPSHOT)</app.parents>
     <cdap.version>6.0.0-SNAPSHOT</cdap.version>
     <hadoop.version>2.3.0</hadoop.version>
-    <junit.version>4.11</junit.version>
+    <junit.version>4.13.1</junit.version>
     <guava.version>13.0.1</guava.version>
   </properties>
 
